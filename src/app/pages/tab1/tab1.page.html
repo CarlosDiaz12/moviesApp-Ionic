@@ -1,0 +1,36 @@
+<ion-content [fullscreen]="true" color="dark">
+  <ion-grid fixed="true" style="margin-top: 2%;">
+    <ion-row>
+      <ion-col>
+        <ion-title style="padding:0">Movies</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-slide-backdrop [movies]="momentMovies" (showModal)="presentModal($event)"></app-slide-backdrop>
+  <ion-grid fixed="true">
+    <ion-row>
+      <ion-col>
+        Billboard
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-slides [options]="slideOptions">
+    <ion-slide *ngFor="let movie of momentMovies">
+      <ion-card color="dark" (click)="presentModal(movie)">
+        <img class="poster-image" [src]="IMAGE_URL + movie.poster_path" />
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  <ion-grid fixed="true">
+    <ion-row>
+      <ion-col>
+        Popular Movies
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-slide-pair-movies
+  (loadMore)="loadPopularMovies(false)"
+  (showModal)="presentModal($event)"
+    [popularMovies]="popularMovies"
+  ></app-slide-pair-movies>
+</ion-content>

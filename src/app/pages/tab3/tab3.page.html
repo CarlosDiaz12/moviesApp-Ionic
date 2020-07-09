@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true" color="dark">
+    <ion-grid fixed="true" style="margin-top: 2%;">
+        <ion-row>
+          <ion-col>
+            <ion-title style="padding:0">My Favorites Movies</ion-title>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="this.localData.favorites.length == 0">
+          <ion-col class="ion-text-center">
+            <ion-label>No favorites to show.</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-slides [options]="slideOptions">
+        <ion-slide *ngFor="let movie of localData.favorites">
+          <ion-card color="dark">
+            <img class="ion-text-center poster-image" [src]="IMAGE_URL + movie.poster_path" *ngIf="movie.poster_path"/>
+            <img class="ion-text-center poster-image" src="assets/no-image.jpg"*ngIf="!movie.poster_path"/>
+            <ion-card-header>
+              <ion-card-subtitle style="margin-left: -325px;"></ion-card-subtitle>
+              <ion-label>{{ movie.release_date.substring(0,4) }}</ion-label>
+              <ion-item class="row-options" color="dark" lines="none">
+                <ion-label> 
+                   <ion-title>{{ movie.title}}</ion-title>
+                </ion-label>
+                <ion-icon color="danger" slot="end" name="heart" (click)="removeFromFavorites(movie)"></ion-icon>
+              </ion-item>
+            </ion-card-header>     
+            <ion-card-content>{{ movie.overview}}</ion-card-content>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+</ion-content>

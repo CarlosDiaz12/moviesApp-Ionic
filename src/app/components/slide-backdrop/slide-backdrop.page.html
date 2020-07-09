@@ -1,0 +1,11 @@
+<ion-slides [options]="slideOptions">
+  <ion-slide *ngFor="let movie of movies">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <img (click)="modalShow(movie)" [src]="IMAGE_URL + movie.backdrop_path"/>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-slide>
+</ion-slides>

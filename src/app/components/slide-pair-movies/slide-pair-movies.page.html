@@ -1,0 +1,27 @@
+<ion-slides [options]="slideOptions">
+  <ion-slide *ngFor="let pair of popularMovies | pair">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" *ngFor="let movie of pair">
+          <ion-card color="dark" (click)="modalShow(movie)">
+            <img
+              class="poster-image"
+              [src]="IMAGE_URL + movie.poster_path"
+              *ngIf="movie.poster_path"
+            />
+            <img
+              class="poster-image"
+              src="assets/no-image.jpg"
+              *ngIf="!movie.poster_path"
+            />
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-slide>
+    <ion-slide style="height: auto">
+          <ion-button (click)="loadMoreMovies()" expand="full" size="large" fill="clear">
+            <ion-icon name="add-outline"></ion-icon>
+          </ion-button>
+  </ion-slide>
+</ion-slides>

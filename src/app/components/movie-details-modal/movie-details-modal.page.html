@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="dark">
+<ion-grid>
+  <ion-row>
+    <!-- <ion-col class="ion-text-center">
+    <img class="poster-image" [src]="IMAGE_URL + movie.poster_path" *ngIf="movie.poster_path"/>
+    <img class="poster-image" src="assets/no-image.jpg"*ngIf="!movie.poster_path"/>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <ion-title>{{ movie.title }}</ion-title>
+    </ion-col> -->
+    <ion-col>
+      <ion-card color="dark">
+        <img class="ion-text-center" [src]="IMAGE_URL + movie.poster_path" *ngIf="movie.poster_path"/>
+        <img class="ion-text-center" src="assets/no-image.jpg"*ngIf="!movie.poster_path"/>
+        <ion-card-header>
+          <ion-card-subtitle>{{ movie.release_date.substring(0,4) }}</ion-card-subtitle>
+          <ion-item class="row-options" color="dark" lines="none">
+            <ion-label>
+               <ion-title>{{ movie.title}}</ion-title>
+            </ion-label>
+            <ion-icon *ngIf="!isFavorite" slot="end" name="heart-outline" (click)="addToFavorites(movie)"></ion-icon>
+            <ion-icon color="danger" *ngIf="isFavorite" slot="end" name="heart" (click)="removeFromFavorites(movie)"></ion-icon>
+          </ion-item>
+        </ion-card-header>     
+        <ion-card-content>{{ movie.overview}}</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+</ion-content>
