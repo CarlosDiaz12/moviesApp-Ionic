@@ -1,11 +1,56 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-
+<ion-content [fullscreen]="true" color="dark">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-searchbar (ionChange)="onSearchEvent()" color="dark" [(ngModel)]="searchTerm" debounce="500"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+    <ion-grid fixed="true" style="margin-top: -2%" *ngIf="!searching">
+    <ion-row>
+      <ion-col>
+          <ion-title>Top Rated</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+    <div class="ion-text-center">
+      <ion-spinner *ngIf="loading" name="crescent" color="light"></ion-spinner>
+    </div>
+<ion-grid *ngIf="!searching">
+  <ion-row>
+    <ion-col size="12" >
+      <ion-list *ngIf="!loading" color="dark" style="background-color: var(--ion-color-dark);">
+        <ion-item *ngFor="let movie of topRated" color="dark">
+          <ion-thumbnail slot="start" (click)="presentModal(movie)">
+            <img [src]="IMAGE_URL + movie.backdrop_path">
+          </ion-thumbnail>
+          <ion-label>
+            <h2><b>{{ movie.title }}</b></h2>
+            <p>{{ movie.overview }}</p>
+          </ion-label>
+          <ion-badge color="light">
+            {{ movie.vote_average }}
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid *ngIf="searching">
+  <ion-row>
+    <ion-col size="4" *ngFor="let movie of searchMovies">
+      <ion-card color="dark" class="poster-image" (click)="presentModal(movie)">
+        <ion-img [src]="IMAGE_URL + movie.poster_path" *ngIf="movie.poster_path"></ion-img>
+        <ion-img src="assets/no-image.jpg" *ngIf="!movie.poster_path"></ion-img>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more movies"
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
 </ion-content>

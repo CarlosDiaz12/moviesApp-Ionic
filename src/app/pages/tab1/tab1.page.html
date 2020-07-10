@@ -1,8 +1,14 @@
 <ion-content [fullscreen]="true" color="dark">
+  <div class="ion-text-center">
+    <ion-spinner *ngIf="loading" name="crescent" color="light"></ion-spinner>
+  </div>
+  <div>
   <ion-grid fixed="true" style="margin-top: 2%;">
     <ion-row>
       <ion-col>
+       <ion-item color="dark">
         <ion-title style="padding:0">Movies</ion-title>
+       </ion-item>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -10,7 +16,9 @@
   <ion-grid fixed="true">
     <ion-row>
       <ion-col>
-        Billboard
+        <ion-item color="dark">
+          <ion-label>Billboard</ion-label>
+        </ion-item>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -24,7 +32,9 @@
   <ion-grid fixed="true">
     <ion-row>
       <ion-col>
-        Popular Movies
+        <ion-item color="dark">
+          <ion-label>Popular Movies</ion-label>
+        </ion-item>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -33,4 +43,5 @@
   (showModal)="presentModal($event)"
     [popularMovies]="popularMovies"
   ></app-slide-pair-movies>
+</div>
 </ion-content>

@@ -19,9 +19,13 @@ export class Tab1Page implements OnInit {
     spaceBetween: 3,
   };
   constructor(private moviesService: MoviesService, public modalController: ModalController) {}
+  loading: boolean;
   ngOnInit(): void {
-    this.loadMomentsMovies();
-    this.loadPopularMovies();
+    setTimeout(() => {
+      this.loading = true;
+      this.loadMomentsMovies();
+      this.loadPopularMovies();
+    }, 2000);
   }
 
 
@@ -53,6 +57,7 @@ export class Tab1Page implements OnInit {
         this.popularMovies = data.results;
         console.log(this.popularMovies);
       }
+      this.loading = false;
     });
   }
 }

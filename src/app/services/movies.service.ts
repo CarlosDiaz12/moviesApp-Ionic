@@ -9,9 +9,20 @@ import { throwError, Observable } from 'rxjs';
 export class MoviesService {
   discoverUrl: string;
   popularUrl = 'discover/movie?sort_by=popularity.desc';
+  topRatedUrl = 'movie/top_rated?&language=en-US&page=1';
+  searchUrl = 'search/movie?language=en-US';
   constructor(private http: HttpClient) {
     const currentTime = new Date().toISOString().slice(0, 10);
     this.discoverUrl = `discover/movie?primary_release_date.gte=2020-01-01&primary_release_date.lte=${currentTime}`;
+  }
+
+  searchMovies(searchTerm: string, page: number = 1): Observable<any> {
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(`${environment.apiUrl}${this.searchUrl}&api_key=${environment.apiKey}&query=${searchTerm}&page=${page}`).pipe(catchError(this.handleError));
+  }
+
+  getTopRatedMovies(): Observable<any>  {
+    return this.http.get(`${environment.apiUrl}${this.topRatedUrl}&api_key=${environment.apiKey}`).pipe(catchError(this.handleError));
   }
 
   getMomentMovies(): Observable<any> {
