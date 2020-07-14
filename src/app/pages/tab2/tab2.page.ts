@@ -28,10 +28,16 @@ IMAGE_URL = environment.imageUrl;
   }
 
   loadData(event: any) {
-    setTimeout(() => {
-      this.loadSearchMovies(false);
-      event.target.complete();
-      }, 2000);
+      if (this.searching) {
+          setTimeout(() => {
+              this.loadSearchMovies(false);
+              event.target.complete();
+          }, 2000);
+      } else {
+          event.target.complete();
+      }
+
+
   }
 
   async presentModal(movie: Movie) {
