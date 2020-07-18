@@ -14,7 +14,7 @@ export class PairPipe implements PipeTransform {
       }
       return result;
     }, []);
- // hola git
+
 
     return pairs;
  }
